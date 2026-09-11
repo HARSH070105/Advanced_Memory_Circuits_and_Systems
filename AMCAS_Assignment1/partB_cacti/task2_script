@@ -1,0 +1,7 @@
+cp cache.cfg cache_task2.cfg
+for size in 262144 524288 1048576 2097152 4194304 8388608 16777216; do
+    sed -i "s/^-size (bytes).*/-size (bytes) $size/" cache_task2.cfg
+    
+    echo -n "Capacity: $size bytes | "
+    ./cacti -infile cache_task2.cfg | grep "Access time (ns):"
+done

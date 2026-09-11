@@ -1,0 +1,12 @@
+sed -i 's/^-Optimize ED or ED^2.*/-Optimize ED or ED^2 (ED, ED^2, NONE): "NONE"/' cache_task3.cfg
+sed -i 's/^-design objective (weight.*/-design objective (weight delay, dynamic power, leakage power, cycle time, area) 100:0:0:0:0/' cache_task3.cfg
+echo "=== PURE DELAY ==="
+./cacti -infile cache_task3.cfg | grep -E "Best Ndwl|Best Ndbl|Best Nspd"
+
+sed -i 's/^-design objective (weight.*/-design objective (weight delay, dynamic power, leakage power, cycle time, area) 0:0:0:0:100/' cache_task3.cfg
+echo "=== PURE AREA ==="
+./cacti -infile cache_task3.cfg | grep -E "Best Ndwl|Best Ndbl|Best Nspd"
+
+sed -i 's/^-Optimize ED or ED^2.*/-Optimize ED or ED^2 (ED, ED^2, NONE): "ED^2"/' cache_task3.cfg
+echo "=== ED^2 ==="
+./cacti -infile cache_task3.cfg | grep -E "Best Ndwl|Best Ndbl|Best Nspd"
